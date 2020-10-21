@@ -31,14 +31,16 @@ $resultado = $gsent->fetchAll();
 if($argv){
 
 	// unset($argv[0]);
-	$e = base64_decode($argv[1]);
+	// $e = base64_decode($argv[1]);
+	$enlaces = (empty($argv[1])) ? " " : base64_decode($argv[1]);
+	$iid = (empty($argv[2])) ? " " : $argv[2];
+	if(!empty($argv[3])) $permiso = $argv[3];
 	$bc = base64_decode($argv[4]);
 
-	$enlaces = (empty($e)) ? " " : $e;
-	$iid = (empty($argv[2])) ? " " : $argv[2];
-	// $permiso = (empty($argv[3])) ? " " : $argv[3];
-	if(!empty($argv[3])) $permiso = $argv[3];
 	$backup_url = (empty($bc)) ? " " : $bc;
+	// $permiso = (empty($argv[3])) ? " " : $argv[3];
+	
+	
 
 	// $descarga = (empty($argv[2])) ? " " : $argv[2];
 	// $lvip =(empty($argv[3])) ? " " : $argv[3];

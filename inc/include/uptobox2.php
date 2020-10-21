@@ -4,20 +4,24 @@
 // ini_set('display_errors', '1');
 include __DIR__ . '/../config.php';
 
-$sses_id = $CONFIG["UptoboxSses"];
+// $sses_id = $CONFIG["UptoboxSses"];
+// $sses_id = "OklfvTlieLF4EvRHFwbp";
+$sses_id = file_get_contents('http://51.195.148.50/panel/inc/comp/utb.php');
 require('dom/simple_html_dom.php');
 
 $url = 'https://uptobox.com';
 $html = file_get_html($url);
 $rrl = "https:".$html->find('form[id=fileupload]', 0)->attr['action'];
 // $rrr = $rrl."?sess_id=".$sses_id;
+
 $urll = parse_url($rrl);
-$urll["host"] = "www83.uptobox.com";
+// var_dump($urll);
+// $urll["host"] = "www83.uptobox.com";
 // $urll["host"] = str_ireplace('www83', 'www36', $urll["host"]);
 
 
 $rrr = $urll["scheme"] . "://" . $urll["host"] . $urll["path"] . "?sess_id=".$sses_id;
-var_dump($rrr);
+// var_dump($rrr);
 $file = $argv[1];
 // $file = "JHWK39412.avi";
 
@@ -40,9 +44,9 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $result = curl_exec ($ch);
 curl_close ($ch);
-// $result = json_decode($result, true);
-var_dump($result);
-// print $result['files'][0]['url'];
+$result = json_decode($result, true);
+// var_dump($result);
+print $result['files'][0]['url'];
 
 
 

@@ -129,7 +129,7 @@ $conexion=conexion();
 					// echo('</pre>');
 
 					// $enlaces_completos = unserialize($ver[5]);
-					if($ver[2] == '(1080)') $linkParaExtra720 = extraNetu($ver[5], 'hqq.tv');
+					if($ver[2] == '(1080)') $linkParaExtra720 = extraNetu($ver[5], 'hqq.to');
 					
 
 

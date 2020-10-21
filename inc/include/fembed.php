@@ -3,6 +3,11 @@
 
 // echo $_SERVER['DOCUMENT_ROOT']."../";
 // echo __FILE__;
+include __DIR__ . '/../config.php';
+
+$cliente_id = $CONFIG["fembedCleinte"];
+$cliente_secret = $CONFIG["fembedSecret"];
+
 
 $RUU = $argv[1];
 $MiPeli = $argv[2];
@@ -42,13 +47,45 @@ $MiPeli = str_replace("'", "", $MiPeli);
 // $RUTA2=preg_replace("/\s+/"," ",$RUTA);
 // $RUTA2 = trim($RUTA2);
 
+
+$MiPeli = rawurlencode($MiPeli);
+// echo "$MiPeli";
+print  "\n";
 $iprt = "http://$IP/$RUT/$MiPeli";
+// $iprt = rawurlencode($iprt);
+// echo $iprt;
+
+$file_array = array(
+	"link" => $iprt,
+	"headers" => "cine24h");
+
+$file_json = (json_encode($file_array));
+var_dump($file_json);
 print  "\n";
 
 // echo $iprt;
 print  "\n";
 
-$cuenta = shell_exec('curl -X POST https://www.fembed.com/api/download -d "client_id=209631&client_secret=251793f59806ff50634bedb8ed00b860003b" -d "links=[{\"link\": \""'.$iprt.'"\", \"headers\": \"pelishd\"}]" -H "Content-Type: application/x-www-form-urlencoded" 2>/dev/null');
+function curl ($cliente_id,$token,$file_json){
+
+	$ch = curl_init(); 
+	curl_setopt($ch, CURLOPT_URL, 'https://www.fembed.com/api/download'); 
+	curl_setopt($ch, CURLOPT_HEADER, FALSE); 
+	curl_setopt($ch, CURLOPT_POST, 1);
+	// curl_setopt($ch, CURLOPT_POSTFIELDS,"client_id=$cliente_id&client_secret=$token&file_id=IdOfVideo&title=NEW_TITLE");
+	curl_setopt($ch, CURLOPT_POSTFIELDS,"client_id=$cliente_id&client_secret=$token&links=[$file_json]");
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); 
+
+	$data = curl_exec($ch); 
+	curl_close($ch);
+	echo $data;
+}
+$cuenta = curl($cliente_id,$cliente_secret,$file_json);
+
+// $cuenta = shell_exec('curl -X POST https://www.fembed.com/api/download -d "client_id="'.$cliente_id.'"&client_secret="'.$cliente_secret.'"" -d "links=[{\"link\": \""'.$iprt.'"\", \"headers\": \"pelishd\"}]" -H "Content-Type: application/x-www-form-urlencoded" 2>/dev/null');
+
+// echo $cuenta;
 
 
 $k = json_decode($cuenta, true);
@@ -61,7 +98,7 @@ $TasID=preg_replace("/\s+/"," ",$sID);
 $TasID = trim($TasID);
 
 
-	$cuenta2 = shell_exec('curl -X POST https://www.fembed.com/api/downloading -d "client_id=209631&client_secret=251793f59806ff50634bedb8ed00b860003b" -d "task_id="'.$TasID.'"" -H "Content-Type: application/x-www-form-urlencoded" 2>/dev/null');
+	$cuenta2 = shell_exec('curl -X POST https://www.fembed.com/api/downloading -d "client_id="'.$cliente_id.'"&client_secret="'.$cliente_secret.'"" -d "task_id="'.$TasID.'"" -H "Content-Type: application/x-www-form-urlencoded" 2>/dev/null');
 
 
 $j = json_decode($cuenta2, true);
@@ -92,7 +129,7 @@ $j = json_decode($cuenta2, true);
  	}
  	// echo "Esperando 15 Seg.";
  	sleep(5);
- 	$cuenta2 = shell_exec('curl -X POST https://www.fembed.com/api/downloading -d "client_id=209631&client_secret=251793f59806ff50634bedb8ed00b860003b" -d "task_id="'.$TasID.'"" -H "Content-Type: application/x-www-form-urlencoded" 2>/dev/null');
+ 	$cuenta2 = shell_exec('curl -X POST https://www.fembed.com/api/downloading -d "client_id="'.$cliente_id.'"&client_secret="'.$cliente_secret.'"" -d "task_id="'.$TasID.'"" -H "Content-Type: application/x-www-form-urlencoded" 2>/dev/null');
  	$j = json_decode($cuenta2, true);
  	// print_r($j);
 

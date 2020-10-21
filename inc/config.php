@@ -26,12 +26,16 @@ $CONFIG["UptoboxSses"] = "aa97a9e6899148e6414c742df2b159ce54d8p";
 $CONFIG["Gounlimited"] = "5735fajqp4n1imi3p8g6";
 #JETLOAD
 $CONFIG["JetloadKey"] = "dkZBM61E56s4K1bJ";
+$CONFIG["evoload"] = "kZg16ww12bfbRG57";
+$CONFIG["mystream"] = "nocr7vp3j9lijae6urbh7p2n3z55ixc0";
+
+
 
 // NETU.TV
 $CONFIG["NetuApi"] = "859caaf780b6ad03e12ccf3f7e7ca4c4";
 // FEMBED
-$CONFIG["ClientIde"] = "suapiaqui";
-$CONFIG["ClientSecret"] = "sukeyaqui";
+$CONFIG["ClientIde"] = "310616";
+$CONFIG["ClientSecret"] = "a23b6b25edffbf2e";
 // ACORTADOR OUO
 $CONFIG["Acortador1"] = "25l4m9Mn";
 // ACORTADOR SHORT
@@ -47,6 +51,11 @@ $CONFIG["dropapk"] = "44224qihtayy1ptpm5lej";
 $CONFIG["clicknupload"] = "658633ea4kv02wdxvip18";
 
 $CONFIG["prostream"] = "1297thvn8kpl18yygta3";
+
+$CONFIG["fembedCleinte"] = "310616";
+$CONFIG["fembedSecret"] = "a23b6b25edffbf2e";
+
+
 
 
 ?>

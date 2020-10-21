@@ -132,9 +132,9 @@ $(document).ready(function() {
         console.log('ejecunatdo a tiempo '+datosTabla);
         var	cadena = [];
         var arrayId = [];
-        // const keyEnlaces = ['hqq.tv','drive.google.com','export=download','mega.nz','short.pe','ouo.io'];
+        // const keyEnlaces = ['hqq.to','drive.google.com','export=download','mega.nz','short.pe','ouo.io'];
         const objEnlaces = {
-            'hqq.tv': 'hqq.tv',
+            'hqq.to': 'hqq.to',
             // 'drive.google.com/file/d': 'gdvip',
             'drive.google.com/open': 'gdvip',
             'drive.google.com/uc': 'gdfree',

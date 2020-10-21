@@ -92,6 +92,7 @@ if ($_GET['page']) {
 		$enlaces["dropapk.to"] = (buscarDato($links,"dropapk.to")) ? $links[buscarDato($links,"dropapk.to")] : "No hay enlaces";
 		$enlaces["prostream.to"] = (buscarDato($links,"prostream.to")) ? $links[buscarDato($links,"prostream.to")] : "No hay enlaces";
 		$enlaces["upstream.to"] = (buscarDato($links,"upstream.to")) ? $links[buscarDato($links,"upstream.to")] : "No hay enlaces";
+		$enlaces["mystream.to"] = (buscarDato($links,"mystream.to")) ? $links[buscarDato($links,"mystream.to")] : "No hay enlaces";
 
 		// if (!empty($backup_url_up)) {
 			

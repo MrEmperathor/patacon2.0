@@ -39,6 +39,10 @@ $embedGou = array();
 foreach ($varlink[9] as $key => $value) {
     $embedGou[$key] = str_replace('https://gounlimited.to/', 'https://gounlimited.to/embed-', $value . ".html");
 }
+$fembedEmbed = array();
+foreach ($varlink[11] as $key => $value) {
+    $fembedEmbed[$key] = str_replace('/f/', '/v/', $value);
+}
 
 ?>
 <header class="main-header">
@@ -94,6 +98,7 @@ foreach ($varlink[9] as $key => $value) {
                     <!--Material textarea-->
                     <div class="md-form mb-4 pink-textarea active-pink-textarea mt-n1">
                         <textarea id="form18" class="md-textarea form-control textColor t-area codigo1" rows="3"><?php
+                        // var_dump($varlink);
                             $VIP_DRIVE = array_reverse($varlink[1]);
                             foreach ($VIP_DRIVE as $key => $valuev) {
                                     print $valuev;
@@ -193,6 +198,57 @@ foreach ($varlink[9] as $key => $value) {
                     <button type="button" id=bt1 class="btn purp-t text-white redon-t mt-n3 mb-4" data-clipboard-target=.codigo9>Copiar</button>
                     <span class="counter">
                         <?php echo count($varlink[9]); ?>
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="card-title">Fembed</h5>
+                    <div class="md-form mb-4 pink-textarea active-pink-textarea mt-n1">
+                        <textarea id="form18" class="md-textarea form-control textColor t-area codigo11" rows="3"><?php
+                            foreach ($varlink[11] as $key => $value) {
+                                        // echo str_replace("\n", "\r\n\r\n", $value);
+                                        print $urlRedir . $value;
+                                        print "\n";
+                                        print "\n";
+                                    }
+                        ?></textarea>
+                    </div>
+                    <button type="button" id=bt1 class="btn purp-t text-white redon-t mt-n3 mb-4" data-clipboard-target=.codigo11>Copiar</button>
+                    <span class="counter">
+                        <?php echo count($varlink[11]); ?>
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="card-title">Mystream</h5>
+                    <div class="md-form mb-4 pink-textarea active-pink-textarea mt-n1">
+                        <textarea id="form18" class="md-textarea form-control textColor t-area codigo10" rows="3"><?php
+                            foreach ($varlink[10] as $key => $value) {
+                                        // echo str_replace("\n", "\r\n\r\n", $value);
+                                        print $value;
+                                        print "\n";
+                                        print "\n";
+                                    }
+                        ?></textarea>
+                    </div>
+                    <button type="button" id=bt1 class="btn purp-t text-white redon-t mt-n3 mb-4" data-clipboard-target=.codigo10>Copiar</button>
+                    <span class="counter">
+                        <?php echo count($varlink[11]); ?>
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="card-title">Fembed-Embed</h5>
+                    <div class="md-form mb-4 pink-textarea active-pink-textarea mt-n1">
+                        <textarea id="form18" class="md-textarea form-control textColor t-area codigo011" rows="3"><?php
+                            foreach ($fembedEmbed as $key => $value) {
+                                        // echo str_replace("\n", "\r\n\r\n", $value);
+                                        print $value;
+                                        print "\n";
+                                        print "\n";
+                                    }
+                        ?></textarea>
+                    </div>
+                    <button type="button" id=bt1 class="btn purp-t text-white redon-t mt-n3 mb-4" data-clipboard-target=.codigo011>Copiar</button>
+                    <span class="counter">
+                        <?php echo count($varlink[11]); ?>
                     </span>
                 </div>
                 <div class="col-md-4">

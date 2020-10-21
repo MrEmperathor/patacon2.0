@@ -15,11 +15,12 @@ if ($argv) {
 	}else{
 		if ($argv[5] == "admin2") {
 			$permiso = $argv[5];
+			$enlaces = "";
 		}else {
 			$enlaces = $argv[5];
 		}
 	}
-	$enlaces = (empty($argv[5])) ? " " : $argv[5];
+	// $enlaces = (empty($argv[5])) ? " " : $argv[5];
 	$descarga = (empty($argv[6])) ? " " : $argv[6];
 	$lvip =(empty($argv[7])) ? " " : $argv[7];
 	$lfree = (empty($argv[8])) ? " " : $argv[8];

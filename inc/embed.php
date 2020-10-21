@@ -39,7 +39,7 @@ if (!empty($u)) {
 
 
 
-
+//iframe
 $very = str_replace('https://verystream.com/stream/', 'https://verystream.com/e/', $enlaces["verystream.com"]);
 $verystreamE = explode('/', parse_url($enlaces["verystream.com"], PHP_URL_PATH));
 $very = str_replace($verystreamE[3], "", $very);
@@ -50,6 +50,9 @@ $enlaces["gounlimited.to-embed"] = str_replace('https://gounlimited.to/', 'https
 $embedUptobox = str_replace('https://uptobox.com/', 'https://uptostream.com/iframe/', $enlaces["uptobox.com"]);
 
 $backdrop = (empty($result['backdrop_path'])) ? "<img src='https://image.tmdb.org/t/p/original/nRXO2SnOA75OsWhNhXstHB8ZmI3.jpg'>" : "<img src='". $config['images']['base_url'] . $config['images']['backdrop_sizes'][3] . $result['backdrop_path'] . "'/>";
+$embed_fembed = str_replace('/f/', '/v/', $enlaces["fembed.com"]);
+$embed_fembed = str_replace('//www.', '//', $embed_fembed);
+$enlaces["fembed.com"] = str_replace('//www.', '//', $enlaces["fembed.com"]);
 
 
 if ($_SESSION['nombre'] == $CONFIG["EmbedUser2"]) {
@@ -122,10 +125,13 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
                                         $enlaces_hover["dropapk.to"] = (buscarDato($links_hover,"dropapk.to")) ? $links_hover[buscarDato($links_hover,"dropapk.to")] : "";
                                         $enlaces_hover["prostream.to"] = (buscarDato($links_hover,"prostream.to")) ? $links_hover[buscarDato($links_hover,"prostream.to")] : "";
                                         $enlaces_hover["upstream.to"] = (buscarDato($links_hover,"upstream.to")) ? $links_hover[buscarDato($links_hover,"upstream.to")] : "";
+                                        $enlaces_hover["mystream.to"] = (buscarDato($links_hover,"mystream.to")) ? $links_hover[buscarDato($links_hover,"mystream.to")] : "";
+
+                                        //iframes
                                         $GD_VIP_hover = str_replace('https://drive.google.com/open?id=', 'https://drive.google.com/file/d/', $enlaces_hover["drive.google.com.VIP"]."/preview");
                                         $enlaces_hover["gounlimited.to-embed"] = str_replace('https://gounlimited.to/', 'https://gounlimited.to/embed-', $enlaces_hover["gounlimited.to"].'.html');
                                         $enlaces_hover["uptobox.com-iframe"] = str_replace('https://uptobox.com/', 'https://uptostream.com/iframe/', $enlaces_hover["uptobox.com"]);
-
+                                        $enlaces_hover["fembed-embed"] = str_replace('/f/', '/v/', $enlaces_hover["fembed.com"]);
                                         
 
 
@@ -145,8 +151,9 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
                                                                     echo (!empty($enlaces_hover["drive.google.com.VIP"])) ? $GD_VIP_hover.'<br>' : ""; //gd vip
                                                                 }
                                                                 echo ($enlaces_hover["gounlimited.to"] != "") ? $enlaces_hover["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
-                                                                echo ($enlaces_hover["uptobox.com"] != "") ? $enlaces_hover["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
-                                                                echo ($enlaces_hover["jetload.net"] != "") ? $enlaces_hover["jetload.net"].'<br>' : ""; //jetload
+                                                                echo ($enlaces_hover["fembed-embed"] != "") ? $enlaces_hover["uptobox.com-iframe"].'<br>' : ""; // fembed embed
+                                                                // echo ($enlaces_hover["uptobox.com"] != "") ? $enlaces_hover["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
+                                                                echo ($enlaces_hover["mystream.to"] != "") ? $enlaces_hover["mystream.to"].'<br>' : ""; //jetload
                                                                 echo ($enlaces_hover["hqq.to"] != "") ? $enlaces_hover["hqq.to"].'<br>' : ""; //netu
                                                                 echo ($enlaces_hover["gounlimited.to"] != "") ? $urlRedirect . $enlaces_hover["gounlimited.to"].'<br>' : ""; //gounlimited
                                                                 echo ($enlaces_hover["uptobox.com"] != "") ? $urlRedirect . $enlaces_hover["uptobox.com"].'<br>' : ""; //uptobox
@@ -374,8 +381,9 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
                             echo (!empty($enlaces_hover_2["drive.google.com.VIP"])) ? $GD_VIP_hover.'<br>' : ""; //gd vip
                         }
                         echo ($enlaces_hover_2["gounlimited.to"] != "") ? $enlaces_hover_2["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
-                        echo ($enlaces_hover_2["uptobox.com"] != "") ? $enlaces_hover_2["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
-                        echo ($enlaces_hover_2["jetload.net"] != "") ? $enlaces_hover_2["jetload.net"].'<br>' : ""; //jetload
+                        // echo ($enlaces_hover_2["uptobox.com"] != "") ? $enlaces_hover_2["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
+                        echo ($enlaces_hover_2["fembed-embed"] != "") ? $enlaces_hover_2["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
+                        echo ($enlaces_hover_2["mystream.to"] != "") ? $enlaces_hover_2["mystream.to"].'<br>' : ""; //jetload
                         echo ($enlaces_hover_2["hqq.to"] != "") ? $enlaces_hover_2["hqq.to"].'<br>' : ""; //netu
                         echo ($enlaces_hover_2["gounlimited.to"] != "") ? $urlRedirect . $enlaces_hover_2["gounlimited.to"].'<br>' : ""; //gounlimited
                         echo ($enlaces_hover_2["uptobox.com"] != "") ? $urlRedirect . $enlaces_hover_2["uptobox.com"].'<br>' : ""; //uptobox
@@ -388,11 +396,11 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
                     
                     
                     echo ($enlaces["gounlimited.to"] != "No hay enlaces") ? $enlaces["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
-                    echo ($enlaces["uptobox.com"] != "No hay enlaces") ? $embedUptobox.'<br>' : ""; // uptobox embed
-                    echo ($enlaces["jetload.net"] != "No hay enlaces") ? $enlaces["jetload.net"].'<br>' : ""; //jetload
+                    echo ($enlaces["fembed.com"] != "No hay enlaces") ? $embed_fembed.'<br>' : ""; // uptobox embed
+                    echo ($enlaces["mystream.to"] != "No hay enlaces") ? $enlaces["mystream.to"].'<br>' : ""; //jetload
                     echo ($enlaces["hqq.to"] != "No hay enlaces") ? $enlaces["hqq.to"].'<br>' : ""; //netu
                     echo ($enlaces["gounlimited.to"] != "No hay enlaces") ? $urlRedirect . $enlaces["gounlimited.to"].'<br>' : ""; //gounlimited
-                    echo ($enlaces["uptobox.com"] != "No hay enlaces") ? $urlRedirect . $enlaces["uptobox.com"].'<br>' : ""; //gounlimited
+                    echo ($enlaces["fembed.com"] != "No hay enlaces") ? $urlRedirect . $enlaces["fembed.com"].'<br>' : ""; //gounlimited
                     echo ($enlaces["short.pe"] != "No hay enlaces") ? $enlaces["short.pe"].'<br>' : ""; //short
                     echo ($enlaces["ouo.io"] != "No hay enlaces") ? $enlaces["ouo.io"].'<br>' : ""; //ouo
                     ?>

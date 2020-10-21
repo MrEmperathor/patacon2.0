@@ -5,7 +5,16 @@
 include __DIR__ . '/../config.php';
 $my_key = $CONFIG["JetloadKey"];
 
-$data = file_get_contents('https://jetload.net/api/v2/upload/'.$my_key.'');
+$context = stream_context_create(
+  array(
+      "http" => array(
+          "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+      )
+  )
+);
+
+$data = file_get_contents("https://jetload.net/api/v2/upload/$my_key", false, $context);
+
 $data = json_decode($data,true);
 
 // print_r($data);
