@@ -42,7 +42,7 @@ $(document).ready(function() {
                 }
             },
 			{
-                text: 'Comprobar Enlaces',
+                text: 'C Enlaces',
 				className: 'color-btn-tabla',
                 action: function () {
 					var datosTabla = table.rows( { selected: true } ).data();
@@ -52,14 +52,50 @@ $(document).ready(function() {
 					// 	console.log(res.data.data.list[0].file_size);
 					// })
                 }
+            },
+            {
+                text: 'Resubir',
+				className: 'color-btn-tabla',
+                action: function () {
+					var datosTabla = table.rows( { selected: true } ).data();
+					if(datosTabla[0]) ResubirEnlaces(datosTabla);
+                }
             }
         ],
 		"pageLength": 50,
         "order": [[ 1, "desc" ]]
     });
 
+
     expresion = /_blank\"\>(.*)\</i;
     expresion2 = /da\"\>(.*)\</i;
+
+    // resubir enlaces indivisuales
+    function ResubirEnlaces(datosTabla) {
+        var cadena = [];
+        cadenaa = '';
+        for (let index = 0; index < datosTabla.length; index++) {
+
+            var element = datosTabla[index];
+            var arrayId = [];
+
+            var idOriginal = element[1].match(expresion)[1];
+            var name = element[2].match(expresion)[1];
+            var calidad = element[3].match(expresion)[1];
+            var idioma = element[4].match(expresion)[1];
+            var tmdb = element[5];
+            var link_backup = element[6].match(expresion2)[1];
+
+            if(calidad == "(1080)") var calidad_dos = "1080";
+            if(calidad == "(720)") var calidad_dos = "720";
+
+
+            arrayId.push(idOriginal);
+            cadena.push(`de2 -n "${name}" -i '${idioma}' -c ${calidad_dos} -t '${tmdb}' -e '${link_backup}' -K 'gdfree' -I '${idOriginal}'; `);
+            
+        }
+        ventanaModal(cadena, arrayId)
+    }
     
     function comprobarEnlacesSubidos(datosTabla) {
 
@@ -196,7 +232,7 @@ $(document).ready(function() {
                     
 
                     arrayId.push(idOriginal);
-                    if(dataCalidad) cadena.push(`de2 -n "${name}" -i '${idioma}' -c ${calidad} -t '${tmdb}' -e '${link_backup}' ${dataCalidad} -I ${idOriginal}; `);
+                    if(dataCalidad) cadena.push(`de2 -n '${name}' -i '${idioma}' -c ${calidad} -t '${tmdb}' -e '${link_backup}' ${dataCalidad} -I ${idOriginal}; `);
                     // dataCalidad = '';
                 
 

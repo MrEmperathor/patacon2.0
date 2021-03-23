@@ -56,6 +56,8 @@ foreach ($varlink[11] as $key => $value) {
                 <div class="row bajar">
                     <div class="col text-center">
                         <h1 class="display-3" ><?php echo $result['original_name'];?></h1>
+                        <h3><?php echo $name; ?></h3>
+                        <h3><?php echo $TMDBid; ?></h3>
                         <!-- <p class="card-text text-white" id=codigo1><?php echo $name." ".$calidad." ".$idioma;?></p> -->
                         <p><?php echo $result['overview']; ?></p>
                     </div>

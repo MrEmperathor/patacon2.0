@@ -71,6 +71,8 @@ if($idioma == "LATINO" || $idioma == "LAT") $url_buscar = '';
 if($idioma == "SUB") $url_buscar = '<a href=https://sub.cine24h.net/?s='.urlencode($name).' target="_blank" rel="noopener noreferrer">'.$name.'</a><br>';
 if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.urlencode($name).' target="_blank" rel="noopener noreferrer">'.$name.'</a><br>';
 
+$name_sin_year = substr($name, 0, -7);
+
 ?>
 <header class="main-header">
         <div class="background-overlay py-5 textColor">
@@ -81,26 +83,46 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
             </div>
             <div class="container">
                 <div class="row bajar">
-                    <div class="col text-center">
-                        <h1><?php echo $result['original_title'];?></h1>
-                        <h2><?php echo $result['id']?></h2>
-                        <h6><?php echo $result['poster_path']?></h6>
-                        <h6><?php echo $result['release_date']?></h6>
-                        <p class="card-text text-white" id=codigo1><?php echo $name." ".$calidad." ".$idioma;?></p>
-                        <a href="<?php echo "https://cine24h.net/?s=".urlencode($name);?>" target="_blank" rel="noopener noreferrer"><?php echo $name; ?></a><br>
-                        <?php echo $url_buscar;?>
-                        <p><?php echo $result['overview']; ?></>
-                        <dl class="row">
-                        <dt class="col-sm-6 text-right">Similares</dt>
+                <div class="col text-center">
+                    <h1><?php echo $result['original_title'];?></h1>
+                    <h2><?php echo $result['id']?></h2>
+                    <br>
+                    <dl class="row">
+                        <dt class="col-sm-6"></dt>
+                        <dt class="col-sm-6"></dt>
+                        <dd class="col-sm-6">
+                            <h6><?php echo $enlaces["hqq.to"]?></h6>
+                        </dd>
+                        <dd class="col-sm-6">
+                            <a href=<?php echo $enlaces["fembed.com"]?> target="_blank" rel="noopener noreferrer"><?php echo $enlaces["fembed.com"]; ?></a>
+                        </dd>
+                    </dl>
+                    <div class="col-12 text-center">
+                        <button type="button" class="btn purp-t redon-t" id="estado_fembed" onclick="fembed_estado_720()" value=<?php echo $enlaces["fembed.com"]?> >720P</button>
+                    </div>
+                    <!-- <h6><?php echo $enlaces["fembed.com"]?></h6> -->
+                    
+                    <h6><?php echo $result['release_date']?></h6>
+                    <p class="card-text text-white" id=codigo1><?php echo $name." ".$calidad." ".$idioma;?></p>
+                    <a href="<?php echo "https://cine24h.net/?s=".urlencode($name_sin_year);?>" target="_blank"
+                        rel="noopener noreferrer"><?php echo $name; ?></a><br>
+                    <a href="<?php echo "https://www.themoviedb.org/search?query=".rawurlencode($name_sin_year)."&language=es";?>"
+                        target="_blank" rel="noopener noreferrer"><?php echo "THEMOVIES ".$name_sin_year; ?></a><br>
+                    <?php echo $url_buscar;?>
+                    <p><?php echo $result['overview']; ?></>
+                    <dl class="row">
+                        <dt class="col-sm-6">Similares</dt>
+                        <dt class="col-sm-6">Cine24h</dt>
                         <dd class="col-sm-6">
                             <ul>
 
-                            <?php foreach ($resultado as $datos):?>
-                            
-                            <?php if ($datos['id'] == $id): ?>
-                                <li><?php echo $datos['nombre']." || ".$datos['calidad']." || ".$datos['idioma']." || ".$datos['temp'];?></li>
-                            <?php else: ?>
-                                    <?php 
+                                <?php foreach ($resultado as $datos):?>
+
+                                <?php if ($datos['id'] == $id): ?>
+                                <li><?php echo $datos['nombre']." || ".$datos['calidad']." || ".$datos['idioma']." || ".$datos['temp'];?>
+                                </li>
+                                <?php else: ?>
+                                <?php 
 
                                         $sql_unico_hover = 'SELECT * FROM pelis WHERE id=?';
                                         $gsent_unico_hover = $pdo->prepare($sql_unico_hover);
@@ -136,27 +158,29 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
 
 
                                         ?>
-                                    <?php if ($datos['TMDB'] == $u): ?>
-                                        <li id="primero"><a href="<?php echo $base.'embed.php?page='.$datos['id']; ?>"><?php echo $datos['nombre']." || ".$datos['calidad']." || ".$datos['idioma']." || ".$datos['temp']; ?></a>
+                                <?php if ($datos['TMDB'] == $u): ?>
+                                <li id="primero"><a
+                                        href="<?php echo $base.'embed.php?page='.$datos['id']; ?>"><?php echo $datos['nombre']." || ".$datos['calidad']." || ".$datos['idioma']." || ".$datos['temp']; ?></a>
                                     <?php endif ?>
-                                    
+
                                     <div class="primero">
-                                                <div class="col">
-                                                    <div class="card w-70 azul1-t redon-t ">
-                                                        <div class="card-body mr-3">
-                                                            <p class="card-text text-white" id="<?php echo "codigo".$datos['id']; ?>">
-                                                                <?php 
-                                                                if ($datos['calidad'] == "(1080)" || $datos['calidad'] == "CAM") {
+                                        <div class="col">
+                                            <div class="card w-70 azul1-t redon-t ">
+                                                <div class="card-body mr-3">
+                                                    <p class="card-text text-white"
+                                                        id="<?php echo "codigo".$datos['id']; ?>">
+                                                        <?php 
+                                                                // if ($datos['calidad'] == "(1080)" || $datos['calidad'] == "CAM") {
                                                                     // echo ($enlaces_hover["drive.google.com.VIP"] != "") ? $GD_VIP.'<br>' : ""; //gd vip
-                                                                    echo (!empty($enlaces_hover["drive.google.com.VIP"])) ? $GD_VIP_hover.'<br>' : ""; //gd vip
-                                                                }
-                                                                echo ($enlaces_hover["gounlimited.to"] != "") ? $enlaces_hover["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
-                                                                echo ($enlaces_hover["fembed-embed"] != "") ? $enlaces_hover["uptobox.com-iframe"].'<br>' : ""; // fembed embed
+                                                                    // echo (!empty($enlaces_hover["drive.google.com.VIP"])) ? $GD_VIP_hover.'<br>' : ""; //gd vip
+                                                                // }
+                                                                // echo ($enlaces_hover["gounlimited.to"] != "") ? $enlaces_hover["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
+                                                                echo ($enlaces_hover["fembed-embed"] != "") ? $enlaces_hover["fembed-embed"].'<br>' : ""; // fembed embed
                                                                 // echo ($enlaces_hover["uptobox.com"] != "") ? $enlaces_hover["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
                                                                 echo ($enlaces_hover["mystream.to"] != "") ? $enlaces_hover["mystream.to"].'<br>' : ""; //jetload
                                                                 echo ($enlaces_hover["hqq.to"] != "") ? $enlaces_hover["hqq.to"].'<br>' : ""; //netu
-                                                                echo ($enlaces_hover["gounlimited.to"] != "") ? $urlRedirect . $enlaces_hover["gounlimited.to"].'<br>' : ""; //gounlimited
-                                                                echo ($enlaces_hover["uptobox.com"] != "") ? $urlRedirect . $enlaces_hover["uptobox.com"].'<br>' : ""; //uptobox
+                                                                // echo ($enlaces_hover["gounlimited.to"] != "") ? $urlRedirect . $enlaces_hover["gounlimited.to"].'<br>' : ""; //gounlimited
+                                                                // echo ($enlaces_hover["uptobox.com"] != "") ? $urlRedirect . $enlaces_hover["uptobox.com"].'<br>' : ""; //uptobox
                                                                 echo ($enlaces_hover["short.pe"] != "") ? $enlaces_hover["short.pe"].'<br>' : ""; //short
                                                                 echo ($enlaces_hover["ouo.io"] != "") ? $enlaces_hover["ouo.io"].'<br>' : ""; //ouo
 
@@ -165,19 +189,74 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
                                                                     $calid2 = $datos['calidad'];
                                                                 }
                                                                 ?>
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" id=bt1 class="btn purp-t text-white redon-t mt-n3" data-clipboard-target=#<?php echo "codigo".$datos['id']; ?>>Copiar</button>
+                                                    </p>
                                                 </div>
-                                    </div></li>
-                            <?php endif ?>
+                                            </div>
+                                            <button type="button" id=bt1 class="btn purp-t text-white redon-t mt-n3"
+                                                data-clipboard-target=#<?php echo "codigo".$datos['id']; ?>>Copiar</button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php endif ?>
 
-                            <?php endforeach ?>
+                                <?php endforeach ?>
                             </ul>
                         </dd>
+                        <dd class="col-sm-6">
+                        
+                            <?php
+                            $igual_wp = json_decode(buscarDuplicadoWp($u, 'cine24h.net'), true);
+                            $igual_wp_esp = json_decode(buscarDuplicadoWp($u, 'esp.cine24h.net'), true);
+                            $igual_wp_sub = json_decode(buscarDuplicadoWp($u, 'sub.cine24h.net'), true);
+                            if (!empty($igual_wp[0])) {
+                                echo '<table class="table table-sm text-white">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">URL</th>
+                                    <th scope="col">UPDATE</th>
+                                </tr>
+                                </thead>
+                                <tbody>';
+                                for ($itt=0; $itt < count($igual_wp); $itt++) { 
+                                    echo '<tr>';
+                                    echo '<th scope="row">'.$igual_wp[$itt]["id"].'</th>';
+                                    echo '<td><a href='.$igual_wp[$itt]["link"].' target="_blank" rel="noopener noreferrer" class="text-white">'.$igual_wp[$itt]["link"].'</a></td>';
+                                    echo '<td><button type="button" class="btn purp-t redon-t waves-effect waves-light" style="padding-left: 30%;padding-right: 30%;padding-top:10%;padding-bottom: 10%;" value="'.$igual_wp[$itt]["id"].'" onclick="updatePostWpApi(\''.$igual_wp[$itt]["id"].'\',\'lat\')"><li class="mdi mdi-replay"></li></td>';
+                                    echo '</tr>';
+                                    // echo '<input type="hidden" id="post_id_wp" name="post_id" value="'.$igual_wp[$itt]["id"].'">';
+                                }
+                                echo '<tr>
+                                        <td colspan="2">ESP CINE24</td>
+                                    </tr>';
+                                for ($itt=0; $itt < count($igual_wp_esp); $itt++) { 
+                                    echo '<tr>';
+                                    echo '<th scope="row">'.$igual_wp_esp[$itt]["id"].'</th>';
+                                    echo '<td><a href='.$igual_wp_esp[$itt]["link"].' target="_blank" rel="noopener noreferrer" class="text-white">'.$igual_wp_esp[$itt]["link"].'</a></td>';
+                                    echo '<td><button type="button" class="btn purp-t redon-t waves-effect waves-light" style="padding-left: 30%;padding-right: 30%;padding-top:10%;padding-bottom: 10%;" value="'.$igual_wp_esp[$itt]["id"].'" onclick="updatePostWpApi(\''.$igual_wp_esp[$itt]["id"].'\',\'esp\')"><li class="mdi mdi-replay"></li></td>';
+                                    echo '</tr>';
+                                    // echo '<input type="hidden" id="post_id_wp" name="post_id" value="'.$igual_wp_esp[$itt]["id"].'">';
+                                }
+                                echo '<tr>
+                                        <td colspan="2">SUB CINE24</td>
+                                    </tr>';
+                                for ($itt=0; $itt < count($igual_wp_sub); $itt++) { 
+                                    echo '<tr>';
+                                    echo '<th scope="row">'.$igual_wp_sub[$itt]["id"].'</th>';
+                                    echo '<td><a href='.$igual_wp_sub[$itt]["link"].' target="_blank" rel="noopener noreferrer" class="text-white">'.$igual_wp_sub[$itt]["link"].'</a></td>';
+                                    echo '<td><button type="button" class="btn purp-t redon-t waves-effect waves-light" style="padding-left: 30%;padding-right: 30%;padding-top:10%;padding-bottom: 10%;" value="'.$igual_wp_sub[$itt]["id"].'" onclick="updatePostWpApi(\''.$igual_wp_sub[$itt]["id"].'\',\'sub\')"><li class="mdi mdi-replay"></li></td>';
+                                    echo '</tr>';
+                                    // echo '<input type="hidden" id="post_id_wp_'.$igual_wp_sub[$itt]["id"].'" name="sub" value="'.$igual_wp_sub[$itt]["id"].'">';
+                                }
+                                echo '</tbody>';
+                                echo '</table>';
+                            }
+                            ?>
+                        </dd>
+                            <!-- <button type="button" class="btn purp-t redon-t waves-effect waves-light" style="padding-left: 30%;padding-right: 30%;padding-top:10%;padding-bottom: 10%;" value="'.$igual_wp_sub[$itt]["id"].'" id="updatePost_sub"><li class="mdi mdi-replay"></li> -->
+                        </button>
                     </dl>
-                    </div>
+                </div>
                 </div>
                 <div class="row">
                     <div class="col-12 text-center">
@@ -365,9 +444,9 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
 
                 <div class="modal-body" id=codigo0>
                     <?php 
-                    if ($calidad == "(1080)" || $calidad == "CAM") {
-                        echo ($enlaces["drive.google.com.VIP"] != "No hay enlaces") ? $GD_VIP.'<br>' : ""; //gd vip
-                    }
+                    // if ($calidad == "(1080)" || $calidad == "CAM") {
+                    //     echo ($enlaces["drive.google.com.VIP"] != "No hay enlaces") ? $GD_VIP.'<br>' : ""; //gd vip
+                    // }
                     // enlaces 720
 
                     if (!empty($enlaces_hover_2)) {
@@ -376,39 +455,64 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
                         // var_dump($enlaces_hover_2);
                         // echo('</pre>');
 
-                        if ($calid2 == "(1080)") {
+                        // if ($calid2 == "(1080)") {
                             // echo ($enlaces_hover["drive.google.com.VIP"] != "") ? $GD_VIP.'<br>' : ""; //gd vip
-                            echo (!empty($enlaces_hover_2["drive.google.com.VIP"])) ? $GD_VIP_hover.'<br>' : ""; //gd vip
-                        }
-                        echo ($enlaces_hover_2["gounlimited.to"] != "") ? $enlaces_hover_2["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
+                            // echo (!empty($enlaces_hover_2["drive.google.com.VIP"])) ? $GD_VIP_hover.'<br>' : ""; //gd vip
+                        // }
+                        // echo ($enlaces_hover_2["gounlimited.to"] != "") ? $enlaces_hover_2["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
                         // echo ($enlaces_hover_2["uptobox.com"] != "") ? $enlaces_hover_2["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
-                        echo ($enlaces_hover_2["fembed-embed"] != "") ? $enlaces_hover_2["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
+                        echo ($enlaces_hover_2["fembed-embed"] != "") ? $enlaces_hover_2["fembed-embed"].'<br>' : ""; // uptobox embed
                         echo ($enlaces_hover_2["mystream.to"] != "") ? $enlaces_hover_2["mystream.to"].'<br>' : ""; //jetload
                         echo ($enlaces_hover_2["hqq.to"] != "") ? $enlaces_hover_2["hqq.to"].'<br>' : ""; //netu
-                        echo ($enlaces_hover_2["gounlimited.to"] != "") ? $urlRedirect . $enlaces_hover_2["gounlimited.to"].'<br>' : ""; //gounlimited
-                        echo ($enlaces_hover_2["uptobox.com"] != "") ? $urlRedirect . $enlaces_hover_2["uptobox.com"].'<br>' : ""; //uptobox
+                        // echo ($enlaces_hover_2["gounlimited.to"] != "") ? $urlRedirect . $enlaces_hover_2["gounlimited.to"].'<br>' : ""; //gounlimited
+                        // echo ($enlaces_hover_2["uptobox.com"] != "") ? $urlRedirect . $enlaces_hover_2["uptobox.com"].'<br>' : ""; //uptobox
+                        echo ($enlaces_hover_2["fembed.com"] != "No hay enlaces") ? $urlRedirect . $enlaces_hover_2["fembed.com"].'<br>' : ""; //
                         echo ($enlaces_hover_2["short.pe"] != "") ? $enlaces_hover_2["short.pe"].'<br>' : ""; //short
                         echo ($enlaces_hover_2["ouo.io"] != "") ? $enlaces_hover_2["ouo.io"].'<br>' : ""; //ouo
+                        
                     }else{
                         echo "";
                     }
                     // fin enlaces 720
                     
                     
-                    echo ($enlaces["gounlimited.to"] != "No hay enlaces") ? $enlaces["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
+                    // echo ($enlaces["gounlimited.to"] != "No hay enlaces") ? $enlaces["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
                     echo ($enlaces["fembed.com"] != "No hay enlaces") ? $embed_fembed.'<br>' : ""; // uptobox embed
                     echo ($enlaces["mystream.to"] != "No hay enlaces") ? $enlaces["mystream.to"].'<br>' : ""; //jetload
                     echo ($enlaces["hqq.to"] != "No hay enlaces") ? $enlaces["hqq.to"].'<br>' : ""; //netu
-                    echo ($enlaces["gounlimited.to"] != "No hay enlaces") ? $urlRedirect . $enlaces["gounlimited.to"].'<br>' : ""; //gounlimited
+                    // echo ($enlaces["gounlimited.to"] != "No hay enlaces") ? $urlRedirect . $enlaces["gounlimited.to"].'<br>' : ""; //gounlimited
                     echo ($enlaces["fembed.com"] != "No hay enlaces") ? $urlRedirect . $enlaces["fembed.com"].'<br>' : ""; //gounlimited
                     echo ($enlaces["short.pe"] != "No hay enlaces") ? $enlaces["short.pe"].'<br>' : ""; //short
                     echo ($enlaces["ouo.io"] != "No hay enlaces") ? $enlaces["ouo.io"].'<br>' : ""; //ouo
+
+                    $fembedRediret = $urlRedirect . $enlaces_hover_2["fembed.com"];
+
+                    
+                    echo '<input type="hidden" id="fembedEmbed" name="bklinks[]" value="'.$enlaces_hover_2["fembed-embed"].'">';
+                    echo '<input type="hidden" id="mystream" name="bklinks[]" value="'.$enlaces_hover_2["mystream.to"].'">';
+                    echo '<input type="hidden" id="fembed" name="bklinks[]" value="'.$fembedRediret.'">';
+                    echo '<input type="hidden" id="short720" name="bklinks[]" value="'.$enlaces_hover_2["short.pe"].'">';
+                    echo '<input type="hidden" id="netu" name="bklinks[]" value="'.$enlaces["hqq.to"].'">';
+                    echo '<input type="hidden" id="short1080" name="bklinks[]" value="'.$enlaces["short.pe"].'">';
+                    //idioma
+                    echo '<input type="hidden" id="idioma" name="bklinks[]" value="'.$idioma.'">';
+                    //calidad
+                    echo '<input type="hidden" id="calidad" name="bklinks[]" value="'.$calidad.'">';
+                    //tmdb
+                    echo '<input type="hidden" id="tmdb" name="bklinks[]" value="'.$result['id'].'">';
                     ?>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn black-t text-white redon-t" data-dismiss="modal">Cerrar</button>
                     <button type="button" id=bt1 class="btn purp-t text-white redon-t" data-clipboard-target=#codigo0>Copiar</button>
+                </div>
+                <div class="modal-footer">
+                    <span id="resultadooVery"></span>
+                    <img src="img/45.svg" alt="Cargando..." style="max-width: 20px; display: none;" id="cargaEmpezada">
+                    <button type="button" id="createPost_lat" class="btn purp-t text-white redon-t" value="lat">Crear Post</button>
+                    <button type="button" id="createPost_esp" class="btn purp-t text-white redon-t" value="esp">Crear Post ESP</button>
+                    <button type="button" id="createPost_sub" class="btn purp-t text-white redon-t" value="sub">Crear Post SUB</button>
+                    <!-- <button type="button" id="updatePost_lat" class="btn purp-t text-white redon-t" value="lat">Update</button> -->
                 </div>
             </div>
         </div>
@@ -590,7 +694,7 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
 
     function accion(){
         let nombre = `-n "${document.getElementById('nombre').value}"`;
-        let enlace = `-e "${document.getElementById('enlace').value}"`;
+        let enlace = `-e '${document.getElementById('enlace').value}'`;
         let subb = document.getElementById('subti').value;
         let tmdb = `-t ${document.getElementById('tmdb').value}`;
         let c10800 = document.getElementById('c1080').checked;
@@ -641,6 +745,7 @@ if($idioma == "CASTELLANO") $url_buscar = '<a href=https://esp.cine24h.net/?s='.
 <script src="js/checked.js"></script>
 <script src="js/peticiones.js"></script>
 <script src="js/peli720.js"></script>
+<script src="js/api-breaky.js"></script>
 </body>
 <?php include_once 'footer.php'; ?>
 </html>

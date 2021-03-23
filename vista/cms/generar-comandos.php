@@ -15,6 +15,11 @@ $de = ($_SESSION["nombre"] == $CONFIG["EmbedUser2"]) ? true : false;
 
             <!-- <label for="subtitulo">Subtitulos</label>
             <input type="text" name="subtitulo" class="form-control" id="subti" aria-describedby="emailHelp"> -->
+            <label for="name-epi">Renombrar desde el episodio</label>
+            <input type="number" name="name-epi" class="form-control" id="name-epi" aria-describedby="emailHelp">
+            <label for="name-urlviki">URL Viki 1 enlace</label>
+            <input type="text" name="name-urlviki" class="form-control" id="name-urlviki" aria-describedby="emailHelp">
+
             <label for="subti">Pegar Subtitulos desde:</label>
             <div class="card w-70 azul1-t redon-t-acortador">
                 <select class="rowser-default custom-select redon-t" id="subti" name="subti">
@@ -47,6 +52,10 @@ $de = ($_SESSION["nombre"] == $CONFIG["EmbedUser2"]) ? true : false;
         <div class="col-6">
             <label for="tmdb">TMDB</label>
             <input type="text" name="tmdb" class="form-control" id="tmdb" aria-describedby="emailHelp">
+            <label for="name-temporada">Numero de temporada</label>
+            <input type="number" name="name-temporada" class="form-control" id="name-temporada" aria-describedby="emailHelp">
+            <label for="name-epiviki">Cantidad de episodios a buscar</label>
+            <input type="number" name="name-epiviki" class="form-control" id="name-epiviki" aria-describedby="emailHelp">
             <label for="contra">Contraseña</label>
             <input type="text" name="contra" class="form-control" id="contra" aria-describedby="emailHelp">
             <!-- Default unchecked -->
@@ -217,6 +226,10 @@ function accion(){
     let eliminar_audio = document.getElementById('eliminar_audio').checked;
     let eliminar_sub = document.getElementById('eliminar_sub').checked;
     let contra = document.getElementById('contra').value;
+    let renomDesdeEpisodio = document.getElementById('name-epi').value;
+    let urlVikiUnEnlace = document.getElementById('name-urlviki').value;
+    let numeroTemporada = document.getElementById('name-temporada').value;
+    let cantidadEpisodioBuscar = document.getElementById('name-epiviki').value;
     var dee = '<?php echo $de;?>';
 
 
@@ -225,9 +238,18 @@ function accion(){
     exp = /\n/g;
     var enlaces = '';
     var words = enlace.split(exp);
-    words.forEach(element => {
+    if (urlVikiUnEnlace) {
+        words.forEach(element => {
+        if(element) enlaces += ` -V '${element}'`;
+        });
+    } else {
+        words.forEach(element => {
         if(element) enlaces += ` -e '${element}'`;
-    });
+        });
+    }
+    // words.forEach(element => {
+    //     if(element) enlaces += ` -e '${element}'`;
+    // });
 
     // if(c10800){
     //     var c1080 = 1080;
@@ -248,16 +270,25 @@ function accion(){
     }else{
         subb_enlace = '';
     }
-    var de = dee ? "de2" : "de";
+    if (renomDesdeEpisodio) {
+        var de = 'se';
+    } else {
+        var de = dee ? "de2" : "de";
+    }
+    // var de = dee ? "de2" : "de";
     // var sub1 = window.sub_extra ? window.sub_extra : '';
     var sub = subb_enlace ? subb_enlace : '';
     var cont = contra ? ` -p '${contra}'` : "";
     var eliminar_audioo = eliminar_audio ? ' -L "true"' : "";
     var eliminar_subb = eliminar_sub ? ' -F "true"' : "";
     var enla = enlaces ? enlaces : '';
+    var renomEpi = renomDesdeEpisodio ? ` -R ${renomDesdeEpisodio}` : ''; 
+    // var urlViki = urlVikiUnEnlace ? `-V "${urlVikiUnEnlace}"` : '';
+    var numTemp = numeroTemporada ? ` -T ${numeroTemporada}` : '';
+    var cantTemp = cantidadEpisodioBuscar ? ` -E ${cantidadEpisodioBuscar}` : '';
 
     
-    document.getElementById('comandoText').innerHTML += de+nombre+idioma+calidad+tmdb+enla+sub+eliminar_audioo+eliminar_subb+cont+"; ";
+    document.getElementById('comandoText').innerHTML += de+nombre+idioma+calidad+tmdb+enla+sub+eliminar_audioo+eliminar_subb+cont+renomEpi+numTemp+cantTemp+"; ";
     limpiarImputs();
     // document.getElementById('comandoText').innerHTML = `de -n ${nombre} -c ${caidad} -i ${idioma} -t ${tmdb} -`
 }
