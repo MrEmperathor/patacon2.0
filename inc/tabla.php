@@ -129,7 +129,7 @@ $conexion=conexion();
 					// echo('</pre>');
 
 					// $enlaces_completos = unserialize($ver[5]);
-					if($ver[2] == '(1080)') $linkParaExtra720 = extraNetu($ver[5], 'mega.nz');
+					if($ver[2] == '(1080)') $linkParaExtra720 = extraNetu($ver[5], 'hqq.to');
 					if($ver[2] == '(720)') $linkParaExtra720 = extraNetu($ver[5], 'mega.nz');
 
 					
@@ -138,7 +138,9 @@ $conexion=conexion();
 					$est = (strlen($ver[5]) == 1 or strlen($ver[5]) == 0)  ? "IMCOMPLETO" : "COMPLETO";
 					$coll = (strlen($ver[5]) == 1 or strlen($ver[5]) == 0 or $ver[5] == "admin2")  ? 'style="color: #444;text-decoration: none !important;"' : NULL;
 					$col = (strlen($ver[6]) == 1 or strlen($ver[6]) == 0)  ? NULL : 'style="color: #77b733;text-decoration: none !important;"';
-					
+
+					if($ver[2] == '(720)') $active720 = 'style="color: #ff005e;"';
+
 					$backup_link = unserialize($ver[6]);
 					$backup_link = $backup_link[1];
 					// if (strlen($ver[6]) > 1) {
@@ -166,7 +168,7 @@ $conexion=conexion();
 
 						<td><a <?php echo $col; ?> href="<?php echo $base.'embed.php?page='.$ver[0]; ?>" target="_blank"><?php echo $ver[2] ?></a></td>
 						<td><a href="<?php echo $base.'embed.php?page='.$ver[0]; ?>" target="_blank"><?php echo $ver[3] ?></a></td>
-						<td><?php echo $ver[4] ?></td>
+						<td><div <?php echo $active720; ?>><?php echo $ver[4] ?></div></td>
 						<!-- <td><?php echo $est; ?></td> -->
 						<!-- <td>
 							<button class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalEdicion" onclick="agregaform('<?php echo $datos ?>')">

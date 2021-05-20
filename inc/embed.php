@@ -30,9 +30,15 @@ $base = "http://" . $host . $uri . "/";
 $urlRedirect = 'https://www.cine24h.net/redirect-to/?redirect=';
 
 if (!empty($u)) {
-    $sql_leer = "SELECT * FROM pelis WHERE TMDB LIKE '%$u%' ORDER BY TMDB";
-    $gsent = $pdo->prepare($sql_leer);
-    $gsent->execute();
+    // $sql_leer = "SELECT * FROM pelis WHERE TMDB LIKE '%$u%' ORDER BY TMDB";
+    $sql_leer = "SELECT * FROM pelis WHERE TMDB = ?";
+    
+    // $gsent = $pdo->prepare($sql_leer);
+    $gsent = $pdo->prepare($sql_leer, [
+        PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL,
+    ]);
+    $parametros = [$u];
+    $gsent->execute($parametros);
 
     $resultado = $gsent->fetchAll();
 }
@@ -462,13 +468,17 @@ $name_sin_year = substr($name, 0, -7);
                         // echo ($enlaces_hover_2["gounlimited.to"] != "") ? $enlaces_hover_2["gounlimited.to-embed"].'<br>' : ""; // gounlimited embed
                         // echo ($enlaces_hover_2["uptobox.com"] != "") ? $enlaces_hover_2["uptobox.com-iframe"].'<br>' : ""; // uptobox embed
                         echo ($enlaces_hover_2["fembed-embed"] != "") ? $enlaces_hover_2["fembed-embed"].'<br>' : ""; // uptobox embed
-                        echo ($enlaces_hover_2["mystream.to"] != "") ? $enlaces_hover_2["mystream.to"].'<br>' : ""; //jetload
-                        echo ($enlaces_hover_2["hqq.to"] != "") ? $enlaces_hover_2["hqq.to"].'<br>' : ""; //netu
+                        // echo ($enlaces_hover_2["mystream.to"] != "") ? $enlaces_hover_2["mystream.to"].'<br>' : ""; //jetload
+                        // echo ($enlaces_hover_2["hqq.to"] != "") ? $enlaces_hover_2["hqq.to"].'<br>' : ""; //netu
                         // echo ($enlaces_hover_2["gounlimited.to"] != "") ? $urlRedirect . $enlaces_hover_2["gounlimited.to"].'<br>' : ""; //gounlimited
                         // echo ($enlaces_hover_2["uptobox.com"] != "") ? $urlRedirect . $enlaces_hover_2["uptobox.com"].'<br>' : ""; //uptobox
                         echo ($enlaces_hover_2["fembed.com"] != "No hay enlaces") ? $urlRedirect . $enlaces_hover_2["fembed.com"].'<br>' : ""; //
                         echo ($enlaces_hover_2["short.pe"] != "") ? $enlaces_hover_2["short.pe"].'<br>' : ""; //short
                         echo ($enlaces_hover_2["ouo.io"] != "") ? $enlaces_hover_2["ouo.io"].'<br>' : ""; //ouo
+                        // echo "=========================";
+                        // echo('<pre>');
+                        // var_dump($enlaces_hover_2);
+                        // echo('</pre>');
                         
                     }else{
                         echo "";
@@ -487,20 +497,29 @@ $name_sin_year = substr($name, 0, -7);
 
                     $fembedRediret = $urlRedirect . $enlaces_hover_2["fembed.com"];
 
-                    
-                    echo '<input type="hidden" id="fembedEmbed" name="bklinks[]" value="'.$enlaces_hover_2["fembed-embed"].'">';
-                    echo '<input type="hidden" id="mystream" name="bklinks[]" value="'.$enlaces_hover_2["mystream.to"].'">';
-                    echo '<input type="hidden" id="fembed" name="bklinks[]" value="'.$fembedRediret.'">';
-                    echo '<input type="hidden" id="short720" name="bklinks[]" value="'.$enlaces_hover_2["short.pe"].'">';
-                    echo '<input type="hidden" id="netu" name="bklinks[]" value="'.$enlaces["hqq.to"].'">';
-                    echo '<input type="hidden" id="short1080" name="bklinks[]" value="'.$enlaces["short.pe"].'">';
-                    //idioma
-                    echo '<input type="hidden" id="idioma" name="bklinks[]" value="'.$idioma.'">';
-                    //calidad
-                    echo '<input type="hidden" id="calidad" name="bklinks[]" value="'.$calidad.'">';
-                    //tmdb
-                    echo '<input type="hidden" id="tmdb" name="bklinks[]" value="'.$result['id'].'">';
                     ?>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <?php
+
+                            echo '<input type="text" id="fembedEmbed" name="bklinks[]" value="'.$enlaces_hover_2["fembed-embed"].'">';
+                            echo '<input type="text" id="mystream" name="bklinks[]" value="'.$enlaces_hover_2["mystream.to"].'">';
+                            echo '<input type="text" id="fembed" name="bklinks[]" value="'.$fembedRediret.'">';
+                            echo '<input type="text" id="short720" name="bklinks[]" value="'.$enlaces_hover_2["short.pe"].'">';
+                            echo '<input type="text" id="netu" name="bklinks[]" value="'.$enlaces["hqq.to"].'">';
+                            echo '<input type="text" id="short1080" name="bklinks[]" value="'.$enlaces["short.pe"].'">';
+                            //idioma
+                            echo '<input type="text" id="idioma" name="bklinks[]" value="'.$idioma.'">';
+                            //calidad
+                            echo '<input type="text" id="calidad" name="bklinks[]" value="'.$calidad.'">';
+                            //tmdb
+                            echo '<input type="text" id="tmdb" name="bklinks[]" value="'.$result['id'].'">';
+                            echo '<input type="text" id="poster" name="bklinks[]" value="'.$result['poster_path'].'">';
+                        
+                        ?>
+                    
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn black-t text-white redon-t" data-dismiss="modal">Cerrar</button>

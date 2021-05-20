@@ -17,6 +17,7 @@ function doSomething_Click(post_type, post_id, dominio) {
     var idio = document.getElementById('idioma').value;
     // calidad
     var calid = document.getElementById('calidad').value;
+    var poster = document.getElementById('poster').value;
 
     //tmdb
     if (post_id) {
@@ -29,6 +30,9 @@ function doSomething_Click(post_type, post_id, dominio) {
     create: crear post nuevos
     update_links: actualizar post
     */
+    // 29 = latino
+    // 30 = castellano
+    // 31 = sub
 
     var links = [];
     var idioma = [];
@@ -58,14 +62,18 @@ function doSomething_Click(post_type, post_id, dominio) {
     if (idio == "LAT" || idio == "LATINO") {
 
         var bkIdioma = "LAT";
+        var addlinkIdioma = 29;
 
     } else if (idio == "CASTELLANO" || idio == "ESP") {
 
         var bkIdioma = "ESP";
+        var addlinkIdioma = 30;
+
 
     } else if (idio == "SUB" || idio == "SUBTITULADO") {
 
         var bkIdioma = "SUB";
+        var addlinkIdioma = 31;
 
     }
 
@@ -85,6 +93,7 @@ function doSomething_Click(post_type, post_id, dominio) {
     var idiomaFinal = btoa(JSON.stringify(idioma)); 
     var calidadFinal = btoa(JSON.stringify(calidad));
     var trType = btoa(JSON.stringify(trType));
+    var poster = btoa(JSON.stringify(poster));
 
     console.log(linksFinal);
     console.log(idiomaFinal);
@@ -98,7 +107,7 @@ function doSomething_Click(post_type, post_id, dominio) {
 
     */
 //    const urll = `http://pelis24hd.test/wp-json/bk-dcms-seo-yoast-generate-post/v2/postID/${tmdb}/api/${api_key}/blinks/${linksFinal}/blang/${bcalidad}/bcalidad/${calidades}/type/${type}/`;
-   const urll = dominio+'/wp-json/bk-dcms-seo-yoast-generate-post/v2/postID/'+tmdb+'/api/'+api_key+'/blinks/'+linksFinal+'/blang/'+idiomaFinal+'/bcalidad/'+calidadFinal+'/type/'+type+'/tr/'+trType+'/';
+   const urll = dominio+'/wp-json/bk-dcms-seo-yoast-generate-post/v2/postID/'+tmdb+'/api/'+api_key+'/blinks/'+linksFinal+'/blang/'+idiomaFinal+'/bcalidad/'+calidadFinal+'/type/'+type+'/tr/'+trType+'/poster/'+poster+'/addlink/'+addlinkIdioma;
    console.log(urll);
 
     // var parametros = {
