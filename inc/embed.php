@@ -225,6 +225,7 @@ $name_sin_year = substr($name, 0, -7);
                                 </thead>
                                 <tbody>';
                                 for ($itt=0; $itt < count($igual_wp); $itt++) { 
+                                    if ($igual_wp[$itt]["meta_value"] != $u) continue;
                                     echo '<tr>';
                                     echo '<th scope="row">'.$igual_wp[$itt]["id"].'</th>';
                                     echo '<td><a href='.$igual_wp[$itt]["link"].' target="_blank" rel="noopener noreferrer" class="text-white">'.$igual_wp[$itt]["link"].'</a></td>';
@@ -236,6 +237,7 @@ $name_sin_year = substr($name, 0, -7);
                                         <td colspan="2">ESP CINE24</td>
                                     </tr>';
                                 for ($itt=0; $itt < count($igual_wp_esp); $itt++) { 
+                                    if ($igual_wp_esp[$itt]["meta_value"] != $u) continue;
                                     echo '<tr>';
                                     echo '<th scope="row">'.$igual_wp_esp[$itt]["id"].'</th>';
                                     echo '<td><a href='.$igual_wp_esp[$itt]["link"].' target="_blank" rel="noopener noreferrer" class="text-white">'.$igual_wp_esp[$itt]["link"].'</a></td>';
@@ -247,6 +249,7 @@ $name_sin_year = substr($name, 0, -7);
                                         <td colspan="2">SUB CINE24</td>
                                     </tr>';
                                 for ($itt=0; $itt < count($igual_wp_sub); $itt++) { 
+                                    if ($igual_wp_sub[$itt]["meta_value"] != $u) continue;
                                     echo '<tr>';
                                     echo '<th scope="row">'.$igual_wp_sub[$itt]["id"].'</th>';
                                     echo '<td><a href='.$igual_wp_sub[$itt]["link"].' target="_blank" rel="noopener noreferrer" class="text-white">'.$igual_wp_sub[$itt]["link"].'</a></td>';

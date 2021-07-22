@@ -177,7 +177,7 @@ $conexion=conexion();
 						</td> -->
 						
 						<td>
-							<div class="da"><?php echo $linkParaExtra720;?></div>
+							<div class="da"><a href="<?php echo $linkParaExtra720;?>" target="_blank" rel="noopener noreferrer"><?php echo $linkParaExtra720;?></a></div>
 						</td>
 						<td>
 							<button class="btn btn-danger mdi mdi-delete menu-icon" 

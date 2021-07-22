@@ -83,7 +83,7 @@ foreach ($varlink[11] as $key => $value) {
                         <?php if ($datos['id'] == $id): ?>
                             <?php echo $datos['nombre']." || ".$datos['calidad']." || ".$datos['idioma']." || ".$datos['temp'];?><br>
                         <?php else: ?>
-                                <a href="<?php echo $base.'serie/'.$datos['id']; ?>"><?php echo $datos['nombre']." || ".$datos['calidad']." || ".$datos['idioma']." || ".$datos['temp']; ?></a><br>
+                                <a href="<?php echo $base.'serie.php?s='.$datos['id']; ?>"><?php echo $datos['nombre']." || ".$datos['calidad']." || ".$datos['idioma']." || ".$datos['temp']; ?></a><br>
                         <?php endif ?>
 
                         <?php endforeach ?>

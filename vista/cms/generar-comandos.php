@@ -83,6 +83,10 @@ $de = ($_SESSION["nombre"] == $CONFIG["EmbedUser2"]) ? true : false;
                     <input type="checkbox" class="custom-control-input" id="eliminar_sub" name="eliminar_sub">
                     <label class="custom-control-label" for="eliminar_sub">Eliminar subtitulos</label>
                 </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="marca_agua" name="marca_agua">
+                    <label class="custom-control-label" for="marca_agua">Marca de Agua</label>
+                </div>
             </div>
         </div>
         <div class="row py-3">
@@ -225,6 +229,7 @@ function accion(){
     let isub = document.getElementById('isub').checked;
     let eliminar_audio = document.getElementById('eliminar_audio').checked;
     let eliminar_sub = document.getElementById('eliminar_sub').checked;
+    let marca_agua = document.getElementById('marca_agua').checked;
     let contra = document.getElementById('contra').value;
     let renomDesdeEpisodio = document.getElementById('name-epi').value;
     let urlVikiUnEnlace = document.getElementById('name-urlviki').value;
@@ -280,7 +285,8 @@ function accion(){
     var sub = subb_enlace ? subb_enlace : '';
     var cont = contra ? ` -p '${contra}'` : "";
     var eliminar_audioo = eliminar_audio ? ' -L "true"' : "";
-    var eliminar_subb = eliminar_sub ? ' -F "true"' : "";
+    var eliminar_subb = eliminar_sub ? ' -F "true"' : ""; 
+    var marca_aguaa = marca_agua ? ' -m "true"' : ""; 
     var enla = enlaces ? enlaces : '';
     var renomEpi = renomDesdeEpisodio ? ` -R ${renomDesdeEpisodio}` : ''; 
     // var urlViki = urlVikiUnEnlace ? `-V "${urlVikiUnEnlace}"` : '';
@@ -288,7 +294,7 @@ function accion(){
     var cantTemp = cantidadEpisodioBuscar ? ` -E ${cantidadEpisodioBuscar}` : '';
 
     
-    document.getElementById('comandoText').innerHTML += de+nombre+idioma+calidad+tmdb+enla+sub+eliminar_audioo+eliminar_subb+cont+renomEpi+numTemp+cantTemp+"; ";
+    document.getElementById('comandoText').innerHTML += de+nombre+idioma+calidad+tmdb+enla+sub+eliminar_audioo+eliminar_subb+marca_aguaa+cont+renomEpi+numTemp+cantTemp+"; ";
     limpiarImputs();
     // document.getElementById('comandoText').innerHTML = `de -n ${nombre} -c ${caidad} -i ${idioma} -t ${tmdb} -`
 }
