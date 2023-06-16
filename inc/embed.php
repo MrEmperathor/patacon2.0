@@ -211,9 +211,9 @@ $name_sin_year = substr($name, 0, -7);
                         <dd class="col-sm-6">
                         
                             <?php
-                            $igual_wp = json_decode(buscarDuplicadoWp($u, 'cine24h.net'), true);
-                            $igual_wp_esp = json_decode(buscarDuplicadoWp($u, 'esp.cine24h.net'), true);
-                            $igual_wp_sub = json_decode(buscarDuplicadoWp($u, 'sub.cine24h.net'), true);
+                            $igual_wp = json_decode(buscarDuplicadoWp($u, 'cine24h.online'), true);
+                            $igual_wp_esp = json_decode(buscarDuplicadoWp($u, 'esp.cine24h.online'), true);
+                            $igual_wp_sub = json_decode(buscarDuplicadoWp($u, 'sub.cine24h.online'), true);
                             if (!empty($igual_wp[0])) {
                                 echo '<table class="table table-sm text-white">
                                 <thead>

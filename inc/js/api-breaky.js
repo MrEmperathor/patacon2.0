@@ -189,9 +189,9 @@ function createPostWpApi(dominiooo) {
 
     var post_type = "create";
 
-    if(dominiooo == 'lat') var var_dominio_create = 'cine24h.net';
-    if(dominiooo == 'esp') var var_dominio_create = 'esp.cine24h.net';
-    if(dominiooo == 'sub') var var_dominio_create = 'sub.cine24h.net';
+    if(dominiooo == 'lat') var var_dominio_create = 'cine24h.online';
+    if(dominiooo == 'esp') var var_dominio_create = 'esp.cine24h.online';
+    if(dominiooo == 'sub') var var_dominio_create = 'sub.cine24h.online';
     doSomething_Click(post_type, null, var_dominio_create);
 }
 
@@ -200,9 +200,9 @@ function updatePostWpApi(id_post,dominiowp) {
     var confirmar = confirm('Actualizar enlaces?');
     
     var post_id = id_post
-    if(dominiowp == 'lat') var var_dominio = 'cine24h.net';
-    if(dominiowp == 'esp') var var_dominio = 'esp.cine24h.net';
-    if(dominiowp == 'sub') var var_dominio = 'sub.cine24h.net';
+    if(dominiowp == 'lat') var var_dominio = 'cine24h.online';
+    if(dominiowp == 'esp') var var_dominio = 'esp.cine24h.online';
+    if(dominiowp == 'sub') var var_dominio = 'sub.cine24h.online';
 
     if (confirmar == true) {
         doSomething_Click(post_type, post_id, var_dominio);

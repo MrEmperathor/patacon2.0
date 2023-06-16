@@ -5,7 +5,7 @@ $CONFIG["LocalHost"] = "localhost";
 $CONFIG["nameBase"] = "uploaddl";
 $CONFIG["nameBase2"] = "uploaddll";
 $CONFIG["dbUser"] = "root";
-$CONFIG["dbPass"] = "9999zzzz";
+$CONFIG["dbPass"] = "USAaltlvc123";
 
 // DATOS DE ACCESO PANEL WEB
 $CONFIG["EmbedUser"] = "admin";
